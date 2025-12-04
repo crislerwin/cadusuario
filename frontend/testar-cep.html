@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste API ViaCEP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        .erro {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .sucesso {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Teste de API ViaCEP</h1>
+    <p>Digite um CEP para testar se a API está respondendo corretamente.</p>
+
+    <div>
+        <input type="text" id="cep" placeholder="Digite o CEP (ex: 01310-100)" maxlength="9">
+        <button onclick="testarCEP()">Buscar CEP</button>
+    </div>
+
+    <div id="resultado" class="resultado" style="display: none;"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function testarCEP() {
+            const cepInput = document.getElementById('cep').value.replace(/\D/g, '');
+            const resultadoDiv = document.getElementById('resultado');
+
+            if (!cepInput || cepInput.length !== 8) {
+                resultadoDiv.className = 'resultado erro';
+                resultadoDiv.innerHTML = '❌ CEP inválido. Digite 8 dígitos.';
+                resultadoDiv.style.display = 'block';
+                return;
+            }
+
+            resultadoDiv.innerHTML = '⏳ Buscando...';
+            resultadoDiv.className = 'resultado';
+            resultadoDiv.style.display = 'block';
+
+            $.ajax({
+                url: `https://viacep.com.br/ws/${cepInput}/json/`,
+                type: 'GET',
+                dataType: 'json',
+                timeout: 5000,
+                success: function(data) {
+                    if (data.erro) {
+                        resultadoDiv.className = 'resultado erro';
+                        resultadoDiv.innerHTML = '❌ CEP não encontrado!';
+                    } else {
+                        resultadoDiv.className = 'resultado sucesso';
+                        resultadoDiv.innerHTML = `
+                            <h3>✅ CEP Encontrado!</h3>
+                            <p><strong>CEP:</strong> ${data.cep}</p>
+                            <p><strong>Logradouro:</strong> ${data.logradouro}</p>
+                            <p><strong>Bairro:</strong> ${data.bairro}</p>
+                            <p><strong>Cidade:</strong> ${data.localidade}</p>
+                            <p><strong>Estado:</strong> ${data.uf}</p>
+                        `;
+                    }
+                },
+                error: function(xhr, status, error) {
+                    resultadoDiv.className = 'resultado erro';
+                    resultadoDiv.innerHTML = `❌ Erro na requisição: ${error}<br>Status: ${status}`;
+                    console.error('Erro completo:', xhr, status, error);
+                }
+            });
+        }
+
+        // Permitir buscar ao pressionar Enter
+        document.getElementById('cep').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                testarCEP();
+            }
+        });
+    </script>
+</body>
+</html>

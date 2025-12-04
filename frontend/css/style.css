@@ -1,0 +1,492 @@
+/* ============================================
+   VARIÁVEIS E CONFIGURAÇÕES GLOBAIS
+   ============================================ */
+
+:root {
+    --primary-color: #1e3a8a;
+    --primary-light: #3b82f6;
+    --primary-lighter: #dbeafe;
+    --secondary-color: #6b7280;
+    --danger-color: #dc2626;
+    --success-color: #16a34a;
+    --background-color: #f5f5f5;
+    --card-background: #ffffff;
+    --border-color: #e5e7eb;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-light: #9ca3af;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --transition-fast: 150ms ease-in-out;
+    --transition-normal: 200ms ease-in-out;
+    --transition-slow: 300ms ease-in-out;
+    --border-radius: 8px;
+}
+
+/* ============================================
+   ESTILOS GLOBAIS
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    color: var(--text-primary);
+    background-color: var(--background-color);
+}
+
+body {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ============================================
+   TIPOGRAFIA
+   ============================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-primary);
+}
+
+.form-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: -0.5px;
+}
+
+.form-subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: "Inter", sans-serif;
+}
+
+/* ============================================
+   CARD DO FORMULÁRIO
+   ============================================ */
+
+.form-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    transition: box-shadow var(--transition-normal);
+    animation: slideInUp var(--transition-slow) ease-out;
+}
+
+.form-card:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-card .card-header {
+    background-color: var(--card-background);
+    border: none;
+}
+
+.form-card .card-body {
+    padding: 2rem;
+}
+
+/* ============================================
+   SEÇÕES DO FORMULÁRIO
+   ============================================ */
+
+.form-section {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+}
+
+/* ============================================
+   LABELS E INPUTS
+   ============================================ */
+
+.form-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.form-control,
+.input-group-text {
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    transition: all var(--transition-fast);
+}
+
+.form-control {
+    padding: 0.75rem 1rem;
+    background-color: var(--card-background);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.form-control::placeholder {
+    color: var(--text-light);
+}
+
+.form-control:focus {
+    background-color: var(--card-background);
+    border-color: var(--primary-light);
+    color: var(--text-primary);
+    box-shadow: 0 0 0 3px var(--primary-lighter);
+    outline: none;
+}
+
+/* Estados de validação */
+.form-control.is-invalid {
+    border-color: var(--danger-color);
+    background-image: none;
+}
+
+.form-control.is-invalid:focus {
+    border-color: var(--danger-color);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.form-control.is-valid {
+    border-color: var(--success-color);
+    background-image: none;
+}
+
+.form-control.is-valid:focus {
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+/* Input Group */
+.input-group-text {
+    background-color: var(--card-background);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.input-group .form-control {
+    border-left: none;
+}
+
+.input-group .form-control:focus {
+    border-left: none;
+}
+
+.input-group .input-group-text {
+    border-right: none;
+}
+
+/* ============================================
+   FEEDBACK DE VALIDAÇÃO
+   ============================================ */
+
+.invalid-feedback {
+    font-size: 12px;
+    color: var(--danger-color);
+    display: none;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: #fee2e2;
+    border-radius: 4px;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.invalid-feedback.d-block {
+    display: block !important;
+}
+
+.form-control.is-invalid ~ .invalid-feedback,
+.input-group:has(.is-invalid) ~ .invalid-feedback {
+    display: block;
+}
+
+/* Mensagens de erro após input-group */
+.input-group ~ .invalid-feedback {
+    margin-top: 0.5rem;
+}
+
+/* ============================================
+   BOTÕES
+   ============================================ */
+
+.btn {
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    padding: 0.75rem 1.5rem;
+    transition: all var(--transition-fast);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: "Inter", sans-serif;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-outline-secondary {
+    color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    background-color: var(--card-background);
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f9fafb;
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    background-color: var(--card-background);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-lighter);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-lg {
+    padding: 0.875rem 2rem;
+    font-size: 15px;
+}
+
+/* Botão de toggle de senha */
+#toggleSenha {
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    background-color: var(--card-background);
+    padding: 0.75rem 1rem;
+}
+
+#toggleSenha:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Botão de buscar CEP */
+#buscarCep {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    background-color: var(--card-background);
+    padding: 0.75rem 1.5rem;
+}
+
+#buscarCep:hover {
+    background-color: var(--primary-lighter);
+}
+
+#buscarCep:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   ALERTAS
+   ============================================ */
+
+.alert {
+    border-radius: var(--border-radius);
+    border: none;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+    animation: slideDown var(--transition-normal) ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert-danger {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-left: 4px solid var(--danger-color);
+}
+
+.alert-success {
+    background-color: #dcfce7;
+    color: #166534;
+    border-left: 4px solid var(--success-color);
+}
+
+.d-none {
+    display: none !important;
+}
+
+/* ============================================
+   ESTADOS DE CARREGAMENTO
+   ============================================ */
+
+.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.spinner-border {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.2em;
+}
+
+/* ============================================
+   RESPONSIVIDADE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .form-card {
+        margin: 0 1rem;
+    }
+
+    .form-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .form-title {
+        font-size: 24px;
+    }
+
+    .d-grid {
+        gap: 0.5rem !important;
+    }
+
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-card {
+        border-radius: 12px;
+    }
+
+    .form-title {
+        font-size: 22px;
+    }
+
+    .form-subtitle {
+        font-size: 13px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .d-md-flex {
+        flex-direction: column !important;
+    }
+}
+
+/* ============================================
+   ACESSIBILIDADE
+   ============================================ */
+
+.form-control:focus,
+.btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Modo escuro (opcional) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --card-background: #1f2937;
+        --background-color: #111827;
+        --text-primary: #f3f4f6;
+        --text-secondary: #d1d5db;
+        --text-light: #9ca3af;
+        --border-color: #374151;
+    }
+
+    .form-control,
+    .input-group-text,
+    .btn-outline-secondary,
+    .btn-outline-primary,
+    #toggleSenha,
+    #buscarCep {
+        background-color: #374151;
+        color: var(--text-primary);
+    }
+
+    .form-control:focus {
+        background-color: #374151;
+    }
+}
