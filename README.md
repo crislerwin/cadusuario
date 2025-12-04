@@ -1,9 +1,9 @@
 # 📋 Sistema de Cadastro de Usuário - Atividades Práticas 3 e 4
 
 > **Disciplina:** Framework para desenvolvimento de software  
-> **Instituição:** Faculdade  
+> **Instituição:** Unopar  
 > **Atividades:** Prática 3 (Spring MVC) e Prática 4 (HTML5/JavaScript com ViaCEP)
-
+> **Aluno:** Crisler Wintler
 ---
 
 ## 📑 Índice
@@ -892,14 +892,8 @@ const API_BACKEND = 'http://localhost:8080/api'
 
 ---
 
-## 👨‍💻 Autor
 
-**Desenvolvido como parte das Atividades Práticas 3 e 4**  
-**Disciplina:** Framework para desenvolvimento de software  
-**Data de Criação:** 04 de Dezembro de 2025  
-**Versão:** 1.0.0
 
----
 
 ## 📝 Licença
 
