@@ -281,28 +281,60 @@ mvn clean package
 
 ## 🚀 Como Executar
 
-### Opção 1: Executar JAR Compilado
+### 🔹 PASSO 1: Executar o Backend (API Spring Boot)
+
+#### 1.1 Verificar Pré-requisitos
+
+Certifique-se de que Java e Maven estão instalados:
 
 ```bash
-cd cadastro-usuario-api
-java -jar target/cadastro-usuario-api-1.0.0.jar
+java -version    # Deve exibir Java 11 ou superior
+mvn -version     # Deve exibir Maven 3.6 ou superior
 ```
 
-### Opção 2: Executar com Maven
+**Não tem instalado?**
+- **Java 11:** https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
+- **Maven:** https://maven.apache.org/download.cgi
+
+#### 1.2 Navegar até a pasta da API
 
 ```bash
-cd cadastro-usuario-api
+cd C:\Documents\cadusuario\api
+```
+
+#### 1.3 Compilar o projeto (primeira vez)
+
+```bash
+mvn clean install
+```
+⏱️ **Aguarde:** Este processo pode levar alguns minutos na primeira execução
+
+#### 1.4 Executar a aplicação
+
+**Opção A - Com Maven (Recomendado):**
+```bash
 mvn spring-boot:run
 ```
 
-### Opção 3: Executar com Tomcat Externo (Atividade Prática 3)
+**Opção B - Executar JAR compilado:**
+```bash
+java -jar target/cadastro-usuario-api-1.0.0.jar
+```
 
+**Opção C - Com Tomcat Externo:**
 1. Copiar arquivo WAR para pasta `webapps` do Tomcat
 2. Iniciar Tomcat
 3. Acessar em `http://localhost:8080/cadastro-usuario-api`
 
-### Verificar se a API está rodando
+#### 1.5 Aguardar a mensagem de sucesso
 
+```
+Started CadastroUsuarioApiApplication in X.XXX seconds
+```
+
+#### 1.6 Verificar se o Backend está funcionando
+
+**No navegador ou terminal:**
 ```bash
 curl http://localhost:8080/api/usuarios/health
 ```
@@ -310,22 +342,340 @@ curl http://localhost:8080/api/usuarios/health
 **Resposta esperada:**
 ```json
 {
-  "status": "OK",
-  "mensagem": "API de Cadastro de Usuários está funcionando"
+  "status": "UP",
+  "message": "API está funcionando corretamente"
 }
 ```
 
-### Acessar o Frontend
+✅ **Backend está rodando em:** `http://localhost:8080/api`
 
-Abra seu navegador e acesse:
+**⚠️ IMPORTANTE:** Deixe este terminal aberto! Se fechar, o backend para de funcionar.
+
+---
+
+### 🔹 PASSO 2: Executar o Frontend
+
+Agora você precisa abrir o frontend em um navegador. Há várias formas:
+
+#### **Opção A - Abrir Diretamente no Navegador (Mais Simples)**
+
+1. Navegue até a pasta:
+   ```
+   C:\Documents\cadusuario\frontend
+   ```
+
+2. Clique duas vezes no arquivo `index.html`
+
+3. O formulário será aberto no navegador padrão
+
+**⚠️ LIMITAÇÃO:** Pode ter problemas com CORS dependendo do navegador.
+
+---
+
+#### **Opção B - Usando Python (Recomendado se tiver Python instalado)**
+
+1. Abra um **NOVO terminal** (não feche o do backend!)
+
+2. Navegue até a pasta frontend:
+   ```bash
+   cd C:\Documents\cadusuario\frontend
+   ```
+
+3. Execute o servidor HTTP:
+   
+   **Python 3:**
+   ```bash
+   python -m http.server 3000
+   ```
+   
+   **Python 2:**
+   ```bash
+   python -m SimpleHTTPServer 3000
+   ```
+
+4. Acesse no navegador:
+   ```
+   http://localhost:3000
+   ```
+
+---
+
+#### **Opção C - Usando Node.js/NPM (se tiver Node instalado)**
+
+1. Instale o servidor http globalmente (apenas uma vez):
+   ```bash
+   npm install -g http-server
+   ```
+
+2. Navegue até a pasta frontend:
+   ```bash
+   cd C:\Documents\cadusuario\frontend
+   ```
+
+3. Execute o servidor:
+   ```bash
+   http-server -p 3000
+   ```
+
+4. Acesse no navegador:
+   ```
+   http://localhost:3000
+   ```
+
+---
+
+#### **Opção D - Usando VS Code com Live Server**
+
+1. Abra o **VS Code**
+
+2. Instale a extensão **"Live Server"** (se ainda não tiver)
+
+3. Abra a pasta `frontend` no VS Code
+
+4. Clique com botão direito em `index.html`
+
+5. Selecione: **"Open with Live Server"**
+
+6. Abre automaticamente em: `http://127.0.0.1:5500`
+
+---
+
+### 🧪 PASSO 3: Testar o Sistema
+
+#### ✅ Teste 1: Verificar Backend
+
+Acesse no navegador:
 ```
-http://localhost:3000
+http://localhost:8080/api/usuarios/health
 ```
 
-ou
-
+**Deve retornar:**
+```json
+{
+  "status": "UP",
+  "message": "API está funcionando corretamente"
+}
 ```
-https://3000-ivpxeeutnw3jkfn9ibv8f-41fa52ba.manusvm.computer/
+
+---
+
+#### ✅ Teste 2: Testar API ViaCEP
+
+1. Abra o arquivo de teste (opcional):
+   ```
+   C:\Documents\cadusuario\frontend\testar-cep.html
+   ```
+
+2. Digite um CEP válido: `01310-100`
+
+3. Clique em "Buscar CEP"
+
+4. **Resultado esperado:**
+   ```
+   ✅ CEP Encontrado!
+   CEP: 01310-100
+   Logradouro: Avenida Paulista
+   Bairro: Bela Vista
+   Cidade: São Paulo
+   Estado: SP
+   ```
+
+---
+
+#### ✅ Teste 3: Cadastrar um Usuário
+
+1. Acesse o formulário frontend
+
+2. Preencha os campos:
+   - **Nome:** `João`
+   - **Sobrenome:** `Silva`
+   - **Email:** `joao.silva@email.com`
+   - **Senha:** `senha123`
+   - **CEP:** `01310-100` → Clique em "🔍 Buscar"
+   - **Número:** `1000`
+   - Os campos Rua, Bairro, Cidade e Estado serão preenchidos automaticamente
+
+3. Clique em **"Cadastrar"**
+
+4. **Resultado esperado:**
+   - Mensagem verde: "✅ Cadastro realizado com sucesso! ID: 1"
+   - Formulário limpa automaticamente após 2 segundos
+
+---
+
+#### ✅ CEPs para Teste
+
+| CEP        | Localização                  |
+|------------|------------------------------|
+| 01310-100  | Av. Paulista, São Paulo/SP   |
+| 20040-020  | Centro, Rio de Janeiro/RJ    |
+| 30130-010  | Centro, Belo Horizonte/MG    |
+| 40020-000  | Centro, Salvador/BA          |
+| 80010-000  | Centro, Curitiba/PR          |
+| 90010-000  | Centro, Porto Alegre/RS      |
+
+---
+
+### 🗄️ PASSO 4: Acessar o Banco de Dados H2 (Opcional)
+
+O backend usa banco de dados H2 em memória. Para visualizar os dados:
+
+1. Com o backend rodando, acesse no navegador:
+   ```
+   http://localhost:8080/api/h2-console
+   ```
+
+2. Preencha as configurações de conexão:
+   - **JDBC URL:** `jdbc:h2:mem:testdb`
+   - **User Name:** `sa`
+   - **Password:** (deixe vazio)
+
+3. Clique em **"Connect"**
+
+4. Execute uma query SQL para ver os usuários cadastrados:
+   ```sql
+   SELECT * FROM usuarios;
+   ```
+
+---
+
+### 🛑 Como Parar o Projeto
+
+#### Parar o Backend:
+1. Vá até o terminal onde o backend está rodando
+2. Pressione: **`Ctrl + C`**
+
+#### Parar o Frontend:
+- **Se abriu direto no navegador:** apenas feche a aba
+- **Se usou servidor local (Python/Node):** vá até o terminal e pressione **`Ctrl + C`**
+
+---
+
+### ❗ Problemas Comuns e Soluções
+
+#### 1. **Erro: "java: command not found"**
+
+**Causa:** Java não está instalado ou não está no PATH
+
+**Solução:**
+- Instale o JDK 11: https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
+- Configure a variável de ambiente `JAVA_HOME`
+
+---
+
+#### 2. **Erro: "mvn: command not found"**
+
+**Causa:** Maven não está instalado ou não está no PATH
+
+**Solução:**
+- Instale o Maven: https://maven.apache.org/download.cgi
+- Adicione Maven ao PATH do sistema
+
+---
+
+#### 3. **Erro: "Porta 8080 já está em uso"**
+
+**Causa:** Outra aplicação está usando a porta 8080
+
+**Solução A - Mudar a porta do backend:**
+
+Edite o arquivo `api/src/main/resources/application.properties`:
+```properties
+server.port=8081
+```
+
+E também atualize o frontend em `frontend/client/controller.js`:
+```javascript
+const API_BACKEND = "http://localhost:8081/api";
+```
+
+**Solução B - Matar o processo na porta 8080:**
+
+**Windows:**
+```cmd
+netstat -ano | findstr :8080
+taskkill /PID <PID> /F
+```
+
+**Linux/Mac:**
+```bash
+lsof -i :8080
+kill -9 <PID>
+```
+
+---
+
+#### 4. **Erro: "CEP não busca endereço"**
+
+**Verificações:**
+- Abra o Console do navegador (F12) para ver erros
+- Verifique se o arquivo está sendo carregado: `client/controller.js`
+- Verifique sua conexão com internet (API ViaCEP é externa)
+- Teste a API diretamente: https://viacep.com.br/ws/01310100/json/
+
+---
+
+#### 5. **Erro: "Formulário não valida ao salvar"**
+
+**Verificações:**
+- Abra o Console do navegador (F12) para ver erros JavaScript
+- Verifique se o jQuery está carregando
+- Verifique se o jQuery Validation está carregando
+- Confirme que o caminho do script está correto: `client/controller.js`
+
+---
+
+#### 6. **Erro CORS no frontend**
+
+**Causa:** Navegador bloqueia requisições de `file://` para `http://`
+
+**Solução:** Use um servidor local (Python/Node.js/Live Server) em vez de abrir o HTML diretamente
+
+---
+
+#### 7. **Backend não responde às requisições**
+
+**Verificações:**
+1. Confirme que o backend está rodando:
+   ```bash
+   curl http://localhost:8080/api/usuarios/health
+   ```
+
+2. Verifique os logs no terminal do backend
+
+3. Confirme que não há erros de compilação
+
+---
+
+### 📊 Endpoints da API Disponíveis
+
+| Método | Endpoint                        | Descrição                     |
+|--------|---------------------------------|-------------------------------|
+| POST   | `/api/usuarios`                | Cadastrar novo usuário        |
+| GET    | `/api/usuarios/{id}`           | Buscar usuário por ID         |
+| GET    | `/api/usuarios/email/{email}`  | Buscar usuário por email      |
+| GET    | `/api/usuarios`                | Listar todos os usuários      |
+| GET    | `/api/usuarios/stats/total`    | Total de usuários cadastrados |
+| DELETE | `/api/usuarios/{id}`           | Deletar usuário               |
+| GET    | `/api/usuarios/health`         | Health check da API           |
+
+---
+
+### 🎯 Configurações Importantes
+
+#### Backend (`application.properties`):
+```properties
+server.port=8080                          # Porta do servidor
+server.servlet.context-path=/api          # Prefixo das URLs
+spring.datasource.url=jdbc:h2:mem:testdb  # Banco H2 em memória
+spring.h2.console.enabled=true            # Console H2 habilitado
+```
+
+#### Frontend (`controller.js`):
+```javascript
+const API_BACKEND = "http://localhost:8080/api";  # URL da API Spring Boot
+const API_VIACEP = "https://viacep.com.br/ws";    # URL da API ViaCEP
+const TIMEOUT_API = 5000;                         # Timeout de 5 segundos
 ```
 
 ---
@@ -817,6 +1167,8 @@ const API_BACKEND = 'http://localhost:8080/api'
 ```
 
 ---
+
+
 
 ## 📚 Referências
 
