@@ -1,0 +1,105 @@
+# Maven
+api/target/
+api/pom.xml.tag
+api/pom.xml.releaseBackup
+api/pom.xml.versionsBackup
+api/pom.xml.next
+api/release.properties
+api/dependency-reduced-pom.xml
+api/buildNumber.properties
+api/.mvn/timing.properties
+api/.mvn/wrapper/maven-wrapper.jar
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.ctxt
+.mtj.tmp/
+hs_err_pid*
+
+# IDE - IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# IDE - Eclipse
+.classpath
+.project
+.settings/
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.recommenders
+
+# IDE - NetBeans
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# IDE - VS Code
+.vscode/
+*.code-workspace
+.history/
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*:Zone.Identifier
+
+# Logs
+*.log
+logs/
+api/logs/
+
+# H2 Database
+*.db
+*.mv.db
+*.trace.db
+
+# Node modules (if using npm for frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Package Files
+*.zip
+*.tar.gz
+*.rar
+
+# Spring Boot
+spring-boot-devtools.properties
+
+# Sensitive Files
+.env
+.env.local
+.env.*.local
+application-local.properties
+application-secrets.properties
+
+# Backup files
+*~
+*.orig
+*.rej
